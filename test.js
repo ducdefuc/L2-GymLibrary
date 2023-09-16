@@ -1,11 +1,13 @@
-import { gymLibrary } from "./index.js"
+import { GymLibrary } from "./GymLibrary.js"
+import { Exercise } from "./Exercise.js"
 
-const gym = new gymLibrary()
+console.log('TESTING')
 
-const newWorkout = {
-    name: "Chest Day",
-    exercises: ["Bench Press", "Incline Bench Press", "Decline Bench Press"]
-}
+const library = new GymLibrary()
 
-gym.createWorkout(newWorkout)
-console.log(gym.showWorkouts())
+const exercise1 = new Exercise('Bench Press', "Lay down on a bench press and lift the barbell up and down.")
+
+library.createWorkout('Push Day', exercise1)
+
+console.log(library.listWorkouts()) 
+console.log(library.getWorkout('Push Day'))
