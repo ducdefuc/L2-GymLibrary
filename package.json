@@ -1,0 +1,20 @@
+{
+  "name": "l2-gymlibrary",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ducdefuc/L2-GymLibrary.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ducdefuc/L2-GymLibrary/issues"
+  },
+  "homepage": "https://github.com/ducdefuc/L2-GymLibrary#readme"
+}
