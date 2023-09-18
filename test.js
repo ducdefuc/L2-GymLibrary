@@ -1,4 +1,4 @@
-import { GymLibrary } from "./GymLibrary.js"
+import { GymLibrary } from "./src/GymLibrary.js"
 
 console.log('TESTING')
 

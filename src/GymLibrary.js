@@ -11,15 +11,22 @@ export class GymLibrary {
     this.#workouts.push(workout)
   }
 
+  // Create a new exercise.
   createExercise(exerciseName, exerciseDescription) {
     const exercise = new Exercise(exerciseName, exerciseDescription)
     return exercise
   }
 
+  // Add an exercise to a workout.
   addExerciseToWorkout(workoutName, exerciseToAdd) {
     // find the workout with the name that matches the name passed in as an argument.
     const targetedWorkout = this.#workouts.find(workout => workout.name === workoutName)
-    targetedWorkout.addExercise(exerciseToAdd)
+    // if workout is not found, throw error else add the exercise to the workout.
+    if (!targetedWorkout) {
+      throw new Error(`Workout with name ${workoutName} not found.`)
+    } else {
+      targetedWorkout.addExercise(exerciseToAdd)
+    }
   }
 
   // Get a list of all the workout names
@@ -32,7 +39,12 @@ export class GymLibrary {
   getWorkout(workoutName) {
     // find the workout with the name that matches the name passed in as an argument.
     const workout = this.#workouts.find(workout => workout.name === workoutName)
-    return workout.showWorkout()
+    // if workout is not found, throw error else return the workout.
+    if (!workout) {
+      throw new Error(`Workout with name ${workoutName} not found.`)
+    } else {
+      return workout.showWorkout()
+    }
   }
 
 }

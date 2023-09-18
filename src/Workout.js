@@ -12,6 +12,7 @@ export class Workout {
     this.name = name
   }
 
+  // Add an exercise to the workout.
   addExercise(exercise) {
     if (!(exercise instanceof Exercise)) {
       throw new Error('The provided item is not an instance of Exercise.')
@@ -20,6 +21,7 @@ export class Workout {
     this.#exercises.push(exercise)
   }
 
+  // Show the workout.
   showWorkout() {
     // Map over exercises array to extract and join names to a string separated by comma.
     const exerciseNames = this.#exercises.map(exercise => exercise.name).join(', ')
