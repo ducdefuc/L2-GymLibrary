@@ -1,13 +1,25 @@
 import { Workout } from "./Workout.js"
+import { Exercise } from "./Exercise.js"
 
 export class GymLibrary {
 
   #workouts = []
 
   // Create a new workout.
-  createWorkout(name, exercise) {
-    const workout = new Workout(name, exercise)
-    this.#workouts.push(workout)  
+  createWorkout(name) {
+    const workout = new Workout(name)
+    this.#workouts.push(workout)
+  }
+
+  addExerciseToWorkout(name, exercise) {
+    // find the workout with the name that matches the name passed in as an argument.
+    const targetedWorkout = this.#workouts.find(workout => workout.name === name)
+    targetedWorkout.addExercise(exercise)
+  }
+
+  createExercise(name, description) {
+    const exercise = new Exercise(name, description)
+    return exercise
   }
 
   // Get a list of all the workout names

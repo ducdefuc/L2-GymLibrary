@@ -4,13 +4,12 @@ export class Workout {
 
   #exercises = []
 
-  constructor(name, exercise) {
+  constructor(name) {
     if (typeof name !== 'string' || name.length === 0) {
       throw new Error('Name must be a string with minimum 1 character.')
     }
 
     this.name = name
-    this.addExercise(exercise)
   }
 
   addExercise(exercise) {
