@@ -12,8 +12,8 @@ export class GymLibrary {
   }
 
   // Create a new exercise.
-  createExercise(exerciseName, exerciseDescription) {
-    const exercise = new Exercise(exerciseName, exerciseDescription)
+  createExercise(exerciseName, exerciseDetails) {
+    const exercise = new Exercise(exerciseName, exerciseDetails)
     return exercise
   }
 
