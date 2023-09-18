@@ -6,20 +6,20 @@ export class GymLibrary {
   #workouts = []
 
   // Create a new workout.
-  createWorkout(name) {
-    const workout = new Workout(name)
+  createWorkout(workoutName) {
+    const workout = new Workout(workoutName)
     this.#workouts.push(workout)
   }
 
-  addExerciseToWorkout(name, exercise) {
-    // find the workout with the name that matches the name passed in as an argument.
-    const targetedWorkout = this.#workouts.find(workout => workout.name === name)
-    targetedWorkout.addExercise(exercise)
+  createExercise(exerciseName, exerciseDescription) {
+    const exercise = new Exercise(exerciseName, exerciseDescription)
+    return exercise
   }
 
-  createExercise(name, description) {
-    const exercise = new Exercise(name, description)
-    return exercise
+  addExerciseToWorkout(workoutName, exerciseToAdd) {
+    // find the workout with the name that matches the name passed in as an argument.
+    const targetedWorkout = this.#workouts.find(workout => workout.name === workoutName)
+    targetedWorkout.addExercise(exerciseToAdd)
   }
 
   // Get a list of all the workout names
@@ -29,9 +29,9 @@ export class GymLibrary {
   }
 
   // Get a specific workout by name
-  getWorkout(name) {
+  getWorkout(workoutName) {
     // find the workout with the name that matches the name passed in as an argument.
-    const workout = this.#workouts.find(workout => workout.name === name)
+    const workout = this.#workouts.find(workout => workout.name === workoutName)
     return workout.showWorkout()
   }
 
