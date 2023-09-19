@@ -11,6 +11,11 @@ export class GymLibrary {
     this.#workouts.push(workout)
   }
 
+  // Remove a workout
+  removeWorkout(workoutName) {
+    this.#workouts = this.#workouts.filter(workouts => workouts.name !== workoutName)
+  }
+
   // Create a new exercise.
   createExercise(exerciseName, exerciseDetails) {
     const exercise = new Exercise(exerciseName, exerciseDetails)
@@ -27,6 +32,17 @@ export class GymLibrary {
     } else {
       targetedWorkout.addExercise(exerciseToAdd)
     }
+  }
+
+  // Remove an exercise from a workout
+  removeExerciseFromWorkout(workoutName, exerciseName) {
+    const workout = this.#workouts.find(workout => workout.name === workoutName)
+
+    if (!workout) {
+      throw new Error(`Workout with name ${workoutName} not found.`)
+    }
+
+    workout.removeExercise(exerciseName)
   }
 
   // Get a list of all the workout names

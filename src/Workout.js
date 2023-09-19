@@ -21,6 +21,11 @@ export class Workout {
     this.#exercises.push(exercise)
   }
 
+  // Remove an exercise
+  removeExercise(exerciseName) {
+    this.#exercises = this.#exercises.filter(exercise => exercise.name !== exerciseName);
+  }
+
   // Show the workout.
   showWorkout() {
     // Map over exercises array to extract and join names to a string separated by comma.
