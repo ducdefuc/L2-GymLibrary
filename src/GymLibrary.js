@@ -1,8 +1,10 @@
 import { Workout } from "./Workout.js"
 import { Exercise } from "./Exercise.js"
+import { Timer } from "./Timer.js"
 
 export class GymLibrary {
 
+  #restTimer = new Timer()
   #workouts = []
 
   // Create a new workout.
@@ -61,6 +63,16 @@ export class GymLibrary {
     } else {
       return workout.showWorkout()
     }
+  }
+
+  // Start the rest timer
+  startRestTimer (durationInSeconds, callback) {  
+    this.#restTimer.startTimer(durationInSeconds, callback)
+  }
+
+  // Stop the rest timer
+  stopRestTimer () {
+    this.#restTimer.stopTimer()
   }
 
 }

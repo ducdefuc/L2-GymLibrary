@@ -1,0 +1,1 @@
+timer has callback function so the user can manipulate event after timer has expired (example, sending a notification to a user)

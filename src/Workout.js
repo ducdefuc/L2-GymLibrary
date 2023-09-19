@@ -23,7 +23,7 @@ export class Workout {
 
   // Remove an exercise
   removeExercise(exerciseName) {
-    this.#exercises = this.#exercises.filter(exercise => exercise.name !== exerciseName);
+    this.#exercises = this.#exercises.filter(exercise => exercise.name !== exerciseName)
   }
 
   // Show the workout.
