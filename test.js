@@ -26,16 +26,14 @@ testLibrary.addExerciseToWorkout('Push Day', pushExercise2)
 
 testLibrary.createWorkout('Pull Day')
 
-console.log(testLibrary.listWorkouts())
+console.log(testLibrary.listAllWorkouts())
 console.log(testLibrary.getWorkout('Push Day'))
-/*
 console.log(testLibrary.getWorkout('Pull Day'))
 testLibrary.removeWorkout('Pull Day')
 testLibrary.removeExerciseFromWorkout('Push Day', 'Bench Press')
 console.log(testLibrary.getWorkout('Push Day'))
-console.log(testLibrary.listWorkouts())
+console.log(testLibrary.listAllWorkouts())
 
 testLibrary.startRestTimer(10, () => {
   console.log("Rest time is over!")
 })
-*/

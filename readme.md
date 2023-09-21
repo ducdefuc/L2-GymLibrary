@@ -1,1 +1,2 @@
-timer has callback function so the user can manipulate event after timer has expired (example, sending a notification to a user)
+1. timer has callback function so the user can manipulate event after timer has expired (example, sending a notification to a user)
+2. Splitta formattering och showworkout till olika typer av set för att sträva efter (en funktion gör bara 1 sak)

@@ -18,11 +18,11 @@ export class GymLibrary {
     this.#workouts = this.#workouts.filter(workouts => workouts.name !== workoutName)
   }
 
-// Create a new exercise.
-createExercise(exerciseName, exerciseDescription = "") {
-  const exercise = new Exercise(exerciseName, exerciseDescription)
-  return exercise
-}
+  // Create a new exercise.
+  createExercise(exerciseName, exerciseDescription = "") {
+    const exercise = new Exercise(exerciseName, exerciseDescription)
+    return exercise
+  }
 
   // Add an exercise to a workout.
   addExerciseToWorkout(workoutName, exerciseToAdd) {
@@ -48,7 +48,7 @@ createExercise(exerciseName, exerciseDescription = "") {
   }
 
   // Get a list of all the workout names
-  listWorkouts() {
+  listAllWorkouts() {
     // call map function on the array of #workouts. For each workout, return the workout name.
     return this.#workouts.map(workout => workout.name)
   }
@@ -66,12 +66,12 @@ createExercise(exerciseName, exerciseDescription = "") {
   }
 
   // Start the rest timer
-  startRestTimer (durationInSeconds, callback) {  
+  startRestTimer(durationInSeconds, callback) {
     this.#restTimer.startTimer(durationInSeconds, callback)
   }
 
   // Stop the rest timer
-  stopRestTimer () {
+  stopRestTimer() {
     this.#restTimer.stopTimer()
   }
 

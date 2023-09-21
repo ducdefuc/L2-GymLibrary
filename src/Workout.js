@@ -26,29 +26,33 @@ export class Workout {
     this.#exercises = this.#exercises.filter(exercise => exercise.name !== exerciseName)
   }
 
-  // Show the workout.
-  showWorkout() {
-    // Map over each exercise in the workout to extract and format its details.
-    const exerciseDetails = this.#exercises.map(exercise => {
-
-      // Filter the sets to only get warmup sets and then format them.
-      const warmupSets = exercise.sets
-        .filter(set => set.type === 'warmup')  // Keep only warmup sets
-        .map(set => `Warm up: kg: ${set.weight}, reps: ${set.reps}`) // Format warmup sets
-        .join('\n')  // Add a newline to each warmup set
-
-      // Filter the sets to only get working sets and then format them.
-      const workingSets = exercise.sets
-        .filter(set => set.type === 'working')
-        .map(set => `Working set: kg: ${set.weight}, reps: ${set.reps}`)
-        .join('\n')
-
-      // Return a formatted string for the exercise, including its name and its warmup and working sets.
-      return `Exercise : ${exercise.name}\n${warmupSets}\n${workingSets}`
-    }).join('\n') // Add a newline after each exercise
-
-    // Return the workout name and the details of each exercise in the workout using the exerciseDetails variable.
-    return `Workout: ${this.name}\n${exerciseDetails}`
+  // Helper function to format warmup sets
+  formatWarmupSets(exercise) {
+    // Return a string of all the warmup sets for an exercise
+    return exercise.sets
+      .filter(set => set.type === 'warmup') // Keep only warmup sets
+      .map(set => `Warm up: kg: ${set.weight}, reps: ${set.reps}`) // format each warmup set
+      .join('\n') // Add a newline between each set
   }
 
+  // Helper function to format working sets
+  formatWorkingSets(exercise) {
+    // Return a string of all the working sets for an exercise
+    return exercise.sets
+      .filter(set => set.type === 'working') // Keep only working sets
+      .map(set => `Working set: kg: ${set.weight}, reps: ${set.reps}`) // format each workingset
+      .join('\n') // Add a newline between each set
+  }
+
+  // Show the workout.
+  showWorkout() {
+    // for each exercise in the workout, format the warmup sets and working sets.
+    const exerciseDetails = this.#exercises.map(exercise => {
+      const warmupSets = this.formatWarmupSets(exercise)
+      const workingSets = this.formatWorkingSets(exercise)
+      // return a string with the exercise name, warmup sets and working sets.
+      return `Exercise : ${exercise.name}\n${warmupSets}\n${workingSets}`
+    }).join('\n') // Add a newline between each exercise
+    return `Workout: ${this.name}\n${exerciseDetails}` // return a correct string using the variable exerciseDetails.
+  }
 }
