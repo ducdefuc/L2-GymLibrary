@@ -18,11 +18,11 @@ export class GymLibrary {
     this.#workouts = this.#workouts.filter(workouts => workouts.name !== workoutName)
   }
 
-  // Create a new exercise.
-  createExercise(exerciseName, exerciseDetails) {
-    const exercise = new Exercise(exerciseName, exerciseDetails)
-    return exercise
-  }
+// Create a new exercise.
+createExercise(exerciseName, exerciseDescription = "") {
+  const exercise = new Exercise(exerciseName, exerciseDescription)
+  return exercise
+}
 
   // Add an exercise to a workout.
   addExerciseToWorkout(workoutName, exerciseToAdd) {
