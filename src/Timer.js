@@ -1,33 +1,31 @@
 export class Timer {
-
+  
   constructor() {
-    this.startTime = null
-    this.endTime = null
-    this.timeOut = null
-    this.logElapsedTime = null
+    this.remainingSeconds = null
+    this.tickInterval = null
   }
 
-  startTimer(durationInSeconds, callback) {
-    this.startTime = new Date()
+  startTimer(durationInSeconds, callbackWhenExpired, onTick) {
+    this.remainingSeconds = durationInSeconds
 
-    // Set an interval to log the elapsed time every second.
-    this.logElapsedTime = setInterval(() => {
-      const elapsedTime = (new Date() - this.startTime) / 1000 // Divide by 1000 to convert milliseconds to seconds
-      console.log(`Elapsed time: ${elapsedTime.toFixed(0)} seconds`) // Round to 0 decimal using toFixed
-    }, 1000)
+    this.tickInterval = setInterval(() => {
+      this.remainingSeconds -= 1  // Tick down counter every second
 
-    // Set a timeout to stop the timer after the duration has elapsed.
-    this.timeOut = setTimeout(() => {
-      clearInterval(this.logElapsedTime)
-      this.endTime = new Date()
-      if (callback) callback()
-    }, durationInSeconds * 1000)
+      // If onTick callback is provided, call it with remaining time in seconds.
+      if (onTick) {
+        onTick(this.remainingSeconds)
+      }
+
+      // If remainingSeconds is 0 or less, clear the interval and call the expired callback.
+      if (this.remainingSeconds <= 0) {
+        clearInterval(this.tickInterval)
+        if (callbackWhenExpired) callbackWhenExpired()
+      }
+    }, 1000) // 1000 milliseconds = 1 second
   }
 
-  // Stop the timer
-  stopTimer() {
-    clearTimeout(this.timeOut)
-    clearInterval(this.logElapsedTime)
-    console.log(`Timer stopped`)
+  resetTimer() {
+    clearInterval(this.tickInterval)
+    this.remainingSeconds = null
   }
 }

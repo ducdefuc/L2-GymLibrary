@@ -66,13 +66,13 @@ export class GymLibrary {
   }
 
   // Start the rest timer
-  startRestTimer(durationInSeconds, callback) {
-    this.#restTimer.startTimer(durationInSeconds, callback)
+  startRestTimer(durationInSeconds, callbackWhenExpired, onTick) {
+    this.#restTimer.startTimer(durationInSeconds, callbackWhenExpired, onTick)
   }
 
   // Stop the rest timer
-  stopRestTimer() {
-    this.#restTimer.stopTimer()
+  resetRestTimer() {
+    this.#restTimer.resetTimer()
   }
 
 }

@@ -34,6 +34,11 @@ testLibrary.removeExerciseFromWorkout('Push Day', 'Bench Press')
 console.log(testLibrary.getWorkout('Push Day'))
 console.log(testLibrary.listAllWorkouts())
 
-testLibrary.startRestTimer(10, () => {
-  console.log("Rest time is over!")
-})
+testLibrary.startRestTimer(10,
+  () => {
+    console.log("Rest time is over!")
+  },
+  (remainingSeconds) => {
+    console.log(`Remaining time: ${remainingSeconds} seconds`)
+  }
+)
