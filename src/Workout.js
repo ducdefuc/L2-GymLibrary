@@ -23,6 +23,9 @@ export class Workout {
 
   // Remove an exercise
   removeExercise(exerciseName) {
+    if (!this.#exercises.some(exercise => exercise.name === exerciseName)) {
+      throw new Error('The workout does not contain an exercise with that name.')
+    }
     this.#exercises = this.#exercises.filter(exercise => exercise.name !== exerciseName)
   }
 

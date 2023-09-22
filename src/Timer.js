@@ -9,6 +9,9 @@ export class Timer {
   }
 
   startTimer(durationInSeconds, callbackWhenExpired, onTick) {
+    if (this.isRunning) {
+      throw new Error('Timer is already running.')
+    }
     this.remainingSeconds = durationInSeconds
     this.isRunning = true
     this.callbackWhenExpired = callbackWhenExpired
@@ -34,12 +37,18 @@ export class Timer {
   }
 
   resetTimer() {
+    if (!this.isRunning) {
+      throw new Error('Timer is not running.')
+    }
     clearInterval(this.tickInterval)
     this.remainingSeconds = null
     this.isRunning = false
   }
 
   pause() {
+    if (!this.isRunning) {
+      throw new Error('Timer is not running.')
+    }
     clearInterval(this.tickInterval)
     this.isRunning = false
   }
