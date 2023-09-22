@@ -1,4 +1,5 @@
 import { GymLibrary } from "./src/GymLibrary.js"
+import { Timer } from "./src/Timer.js"
 
 console.log('TESTING')
 
@@ -42,3 +43,14 @@ testLibrary.startRestTimer(10,
     console.log(`Remaining time: ${remainingSeconds} seconds`)
   }
 )
+
+setTimeout(() => {
+  console.log('Pausing the rest timer...')
+  testLibrary.pauseRestTimer()
+
+  setTimeout(() => {
+    console.log('Resuming the rest timer...')
+    testLibrary.resumeRestTimer() 
+  }, 3000)
+
+}, 3000)

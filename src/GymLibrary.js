@@ -74,5 +74,13 @@ export class GymLibrary {
   resetRestTimer() {
     this.#restTimer.resetTimer()
   }
+  // Pause the rest timer
+  pauseRestTimer() {
+    this.#restTimer.pause()
+  }
+  // Resume the rest timer
+  resumeRestTimer() {
+    this.#restTimer.resume()
+  }  
 
 }
