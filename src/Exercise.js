@@ -3,10 +3,6 @@ export class Exercise {
     if (typeof name !== 'string' || name.length === 0) {
       throw new Error('Name must be a string with minimum 1 character.')
     }
-    
-    if (typeof description !== 'string' || description.length === 0) {
-      throw new Error('Description must be a string with minimum 1 character.')
-    }
 
     this.name = name 
     this.description = description
@@ -30,8 +26,8 @@ export class Exercise {
     if (typeof reps !== 'number' || reps < 1) {
       throw new Error('You have to do atleast 1 rep.')
     }
-    if (typeof weight !== 'number' || weight <= 0) {
-      throw new Error('Weight must be atleast 0.')
-    }
+    if (typeof weight !== 'number' || weight < 0) {
+      throw new Error('Weight cannot be negative.')
+  }  
   }
 }

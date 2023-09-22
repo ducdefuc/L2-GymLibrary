@@ -6,12 +6,11 @@ export class Timer {
     this.isRunning = false
     this.callbackWhenExpired = null
     this.onTick = null
+    this.callbackWhenPaused = null
   }
 
   startTimer(durationInSeconds, callbackWhenExpired, onTick) {
-    if (this.isRunning) {
-      throw new Error('Timer is already running.')
-    }
+    this.checkIfRunning(true) // Check if timer is already running
     this.remainingSeconds = durationInSeconds
     this.isRunning = true
     this.callbackWhenExpired = callbackWhenExpired
@@ -37,25 +36,37 @@ export class Timer {
   }
 
   resetTimer() {
-    if (!this.isRunning) {
-      throw new Error('Timer is not running.')
-    }
     clearInterval(this.tickInterval)
     this.remainingSeconds = null
     this.isRunning = false
+    this.callbackWhenExpired = null
+    this.onTick = null
   }
 
-  pause() {
-    if (!this.isRunning) {
-      throw new Error('Timer is not running.')
-    }
+  pause(callbackWhenPaused) {
+    this.checkIfRunning(false) // Check if timer is already paused
     clearInterval(this.tickInterval)
     this.isRunning = false
+    if (callbackWhenPaused) {
+      callbackWhenPaused()
+    }
   }
+  
 
   resume() {
     if (this.remainingSeconds !== null) {
       this.startTimer(this.remainingSeconds, this.callbackWhenExpired, this.onTick)
     }
   }
+
+  checkIfRunning(shouldBeRunning) {
+    if (shouldBeRunning && this.isRunning) {
+      throw new Error('Timer is already running.')
+    }
+
+    if (!shouldBeRunning && !this.isRunning) {
+      throw new Error('Timer is not running.')
+    }
+}
+
 }

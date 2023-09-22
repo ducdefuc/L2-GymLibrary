@@ -39,11 +39,6 @@ export class GymLibrary {
   // Remove an exercise from a workout
   removeExerciseFromWorkout(workoutName, exerciseName) {
     const workout = this.#workouts.find(workout => workout.name === workoutName)
-
-    if (!workout) {
-      throw new Error(`Workout with name ${workoutName} not found.`)
-    }
-
     workout.removeExercise(exerciseName)
   }
 
@@ -81,6 +76,6 @@ export class GymLibrary {
   // Resume the rest timer
   resumeRestTimer() {
     this.#restTimer.resume()
-  }  
+  }
 
 }

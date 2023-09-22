@@ -1,7 +1,6 @@
 import { GymLibrary } from "./src/GymLibrary.js"
-import { Timer } from "./src/Timer.js"
 
-console.log('TESTING')
+console.log('-------------TESTING-------------')
 
 const testLibrary = new GymLibrary()
 
@@ -27,14 +26,28 @@ testLibrary.addExerciseToWorkout('Push Day', pushExercise2)
 
 testLibrary.createWorkout('Pull Day')
 
-console.log(testLibrary.listAllWorkouts())
-console.log(testLibrary.getWorkout('Push Day'))
-console.log(testLibrary.getWorkout('Pull Day'))
-testLibrary.removeWorkout('Pull Day')
-testLibrary.removeExerciseFromWorkout('Push Day', 'Bench Press')
-console.log(testLibrary.getWorkout('Push Day'))
+console.log('------------LISTING WORKOUTS-------------')
 console.log(testLibrary.listAllWorkouts())
 
+console.log('----- SHOWING PUSH DAY WORKOUT -----')
+console.log(testLibrary.getWorkout('Push Day'))
+
+console.log('----- ShOWING PULL DAY WORKOUT -----')
+console.log(testLibrary.getWorkout('Pull Day'))
+
+testLibrary.removeWorkout('Pull Day')
+console.log('------------REMOVED PULL DAY WORKOUT-------------')
+
+testLibrary.removeExerciseFromWorkout('Push Day', 'Bench Press')
+console.log('------------REMOVED BENCH PRESS FROM PUSHDAY-------------')
+
+console.log('----- SHOWING PUSH DAY WORKOUT AFTER REMOVAL-----')
+console.log(testLibrary.getWorkout('Push Day'))
+
+console.log('------------LISTING WORKOUTS-------------')
+console.log(testLibrary.listAllWorkouts())
+
+console.log('-------------TESTING TIMER-------------')
 testLibrary.startRestTimer(10,
   () => {
     console.log("Rest time is over!")
