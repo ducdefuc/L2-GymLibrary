@@ -2,6 +2,13 @@ import { Workout } from "./Workout.js"
 import { Exercise } from "./Exercise.js"
 import { Timer } from "./Timer.js"
 
+
+/**
+ * `GymLibrary` is a tool for managing workouts and exercises.
+ * It offers capabilities like creating, retrieving, deleting and managing
+ * individual exercises and workouts. It also features a rest timer that can be used
+ * during workout sessions.
+ */
 export class GymLibrary {
 
   #restTimer = new Timer()
