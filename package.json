@@ -5,8 +5,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
-  },
+    "test": "jest",
+    "test:timer": "node timerTest.js"
+  },  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ducdefuc/L2-GymLibrary.git"
