@@ -9,7 +9,7 @@ describe('GymLibrary', () => {
     lib = new GymLibrary()
   })
 
-  // Testing .createWorkout()
+  // Testing .createWorkout() function
   test('should create a new workout', () => {
     const workoutName = 'Push Day'
     lib.createWorkout(workoutName)
@@ -17,7 +17,7 @@ describe('GymLibrary', () => {
     expect(workouts).toContain(workoutName)
   })
 
-  // Testing .removeWorkout()
+  // Testing .removeWorkout() function
   test('should remove an existing workout', () => {
     const workoutName = 'Push Day'
     lib.createWorkout(workoutName)
@@ -44,32 +44,30 @@ describe('GymLibrary', () => {
     expect(lib.listAllWorkouts()).toEqual(initialWorkouts)
   })
 
+  // testing .addExerciseToWorkout() function
   describe('addExerciseToWorkout', () => {
+
+    let workoutName, exerciseName, exerciseDescription, exercise
+
+    beforeEach(() => {
+      workoutName = 'Push Day'
+      exerciseName = 'Bench Press'
+      exerciseDescription = 'An exercise for the chest'
+
+      lib.createWorkout(workoutName)
+      exercise = new Exercise(exerciseName, exerciseDescription)
+    })
 
     // Testing adding a valid exercise to an existing workout
     test('should add a valid exercise to an existing workout', () => {
-      const workoutName = 'Push Day'
-      const exerciseName = 'Bench Press'
-      const exerciseDescription = 'An exercise for the chest'
-
-      lib.createWorkout(workoutName)
-      const exercise = new Exercise(exerciseName, exerciseDescription)
-
       lib.addExerciseToWorkout(workoutName, exercise)
-
       const workoutDetailsString = lib.getWorkout(workoutName)
       expect(workoutDetailsString).toContain(exerciseName)
-
-
     })
 
     // Testing adding an exercise to a non-existent workout
     test('should throw an error if trying to add an exercise to a non-existent workout', () => {
       const nonExistentWorkoutName = 'Non-existent Workout'
-      const exerciseName = 'Bicep Curl'
-
-      const exercise = new Exercise(exerciseName)
-
       expect(() => {
         lib.addExerciseToWorkout(nonExistentWorkoutName, exercise)
       }).toThrow(Error)
@@ -77,12 +75,51 @@ describe('GymLibrary', () => {
 
     // Testing adding a non Exercise instance to an existing workout
     test('should throw an error if trying to add a non Exercise instance to an existing workout', () => {
-      const workoutName = 'Push Day'
-      lib.createWorkout(workoutName)
-
       expect(() => {
         lib.addExerciseToWorkout(workoutName, "Not an Exercise instance")
       }).toThrow(Error)
+    })
+  })
+
+  describe('removeExerciseFromWorkout', () => {
+
+    let workoutName, exerciseName, exerciseDescription, exercise
+
+    beforeEach(() => {
+      workoutName = 'Push Day'
+      exerciseName = 'Bench Press'
+      exerciseDescription = 'A chest exercise'
+
+      lib.createWorkout(workoutName)
+      exercise = new Exercise(exerciseName, exerciseDescription)
+      lib.addExerciseToWorkout(workoutName, exercise)
+    })
+
+    // Testing removing an exercise from an existing workout
+    test('should remove an exercise from an existing workout', () => {
+      // Confirm the exercise is in the workout
+      const initialWorkoutDetails = lib.getWorkout(workoutName)
+      expect(initialWorkoutDetails).toContain(exerciseName)
+
+      // Remove the exercise
+      lib.removeExerciseFromWorkout(workoutName, exerciseName)
+
+      // Confirm the exercise is no longer in the workout
+      const updatedWorkoutDetails = lib.getWorkout(workoutName)
+      expect(updatedWorkoutDetails).not.toContain(exerciseName)
+    })
+
+    test('should throw an error when trying to remove a non-existent exercise', () => {
+      const nonExistentExerciseName = 'Non-existent Exercise'
+
+      // Ensure the non-existent exercise is not in the workout
+      const initialWorkoutDetails = lib.getWorkout(workoutName)
+      expect(initialWorkoutDetails).not.toContain(nonExistentExerciseName)
+
+      // Now try to remove the non-existent exercise and expect an error
+      expect(() => {
+        lib.removeExerciseFromWorkout(workoutName, nonExistentExerciseName)
+      }).toThrow('The workout does not contain an exercise with that name.')
     })
   })
 
