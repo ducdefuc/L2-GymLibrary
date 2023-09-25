@@ -1,6 +1,6 @@
-import { GymLibrary } from "./src/GymLibrary.js"
-import { Workout } from "./src/Workout.js"
-import { Exercise } from "./src/Exercise.js"
+import { GymLibrary } from "../src/GymLibrary.js"
+import { Workout } from "../src/Workout.js"
+import { Exercise } from "../src/Exercise.js"
 
 describe('GymLibrary', () => {
   let lib
