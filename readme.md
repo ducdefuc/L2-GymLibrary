@@ -2,5 +2,3 @@ GymLibrary is a library created specifically for developers that wants to develo
 
 Limitations:
 The following library does not provide built in training regimes, exercices and workouts. It also uses an internal list to store workouts which means that the stored workouts are session based and the data is not persistent across sessions. This means that the user will have to handle this if they want the desired functionallity. 
-
-How to use:
