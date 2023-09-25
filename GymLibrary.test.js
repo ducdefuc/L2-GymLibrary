@@ -44,6 +44,48 @@ describe('GymLibrary', () => {
     expect(lib.listAllWorkouts()).toEqual(initialWorkouts)
   })
 
+  describe('addExerciseToWorkout', () => {
+
+    // Testing adding a valid exercise to an existing workout
+    test('should add a valid exercise to an existing workout', () => {
+      const workoutName = 'Push Day'
+      const exerciseName = 'Bench Press'
+      const exerciseDescription = 'An exercise for the chest'
+
+      lib.createWorkout(workoutName)
+      const exercise = new Exercise(exerciseName, exerciseDescription)
+
+      lib.addExerciseToWorkout(workoutName, exercise)
+
+      const workoutDetailsString = lib.getWorkout(workoutName)
+      expect(workoutDetailsString).toContain(exerciseName)
+
+
+    })
+
+    // Testing adding an exercise to a non-existent workout
+    test('should throw an error if trying to add an exercise to a non-existent workout', () => {
+      const nonExistentWorkoutName = 'Non-existent Workout'
+      const exerciseName = 'Bicep Curl'
+
+      const exercise = new Exercise(exerciseName)
+
+      expect(() => {
+        lib.addExerciseToWorkout(nonExistentWorkoutName, exercise)
+      }).toThrow(Error)
+    })
+
+    // Testing adding a non Exercise instance to an existing workout
+    test('should throw an error if trying to add a non Exercise instance to an existing workout', () => {
+      const workoutName = 'Push Day'
+      lib.createWorkout(workoutName)
+
+      expect(() => {
+        lib.addExerciseToWorkout(workoutName, "Not an Exercise instance")
+      }).toThrow(Error)
+    })
+  })
+
 })
 
 describe('Workout', () => {
@@ -107,4 +149,5 @@ describe('Workout', () => {
     })
 
   })
+
 })
