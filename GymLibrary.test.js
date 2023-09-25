@@ -85,6 +85,7 @@ describe('GymLibrary', () => {
     })
   })
 
+  // testing .removeExerciseFromWorkout() function
   describe('removeExerciseFromWorkout', () => {
 
     let workoutName, exerciseName, exerciseDescription, exercise
@@ -113,6 +114,7 @@ describe('GymLibrary', () => {
       expect(updatedWorkoutDetails).not.toContain(exerciseName)
     })
 
+    // testing removing an exercise from a non-existent workout
     test('should throw an error when trying to remove a non-existent exercise', () => {
       const nonExistentExerciseName = 'Non-existent Exercise'
 
@@ -158,6 +160,7 @@ describe('GymLibrary', () => {
 
   })
 
+  // testing .getWorkout() function
   describe('getWorkout', () => {
 
     let workoutName, exerciseName, exerciseDescription, exercise
@@ -172,14 +175,14 @@ describe('GymLibrary', () => {
       lib.addExerciseToWorkout(workoutName, exercise)
     })
 
-    // Test 1: Retrieve an Existing Workout
+    // Retrieveing an existing Workout case
     test('should retrieve details of an existing workout', () => {
       const workoutDetails = lib.getWorkout(workoutName)
       expect(workoutDetails).toContain(workoutName)
       expect(workoutDetails).toContain(exerciseName)
     })
 
-    // Test 2: Non-Existent Workout
+    // Retrieving a non existing Workout case
     test('should throw an error when trying to retrieve a non-existent workout', () => {
       const nonExistentWorkoutName = 'Non-existent Workout'
       expect(() => {
@@ -214,43 +217,83 @@ describe('Workout', () => {
     }).toThrow(Error)
   })
 
-  describe('Exercise', () => {
+})
 
-    // testing the creation of Exercise with a valid name and description
-    test('should create a new Exercise instance with a valid name and description', () => {
-      const exerciseName = 'Bench Press'
-      const exerciseDescription = 'Press the barbell upwards while lying on a bench'
-      const exercise = new Exercise(exerciseName, exerciseDescription)
+describe('Exercise', () => {
 
-      expect(exercise).toBeInstanceOf(Exercise)
-      expect(exercise.name).toBe(exerciseName)
-      expect(exercise.description).toBe(exerciseDescription)
+  // testing the creation of Exercise with a valid name and description
+  test('should create a new Exercise instance with a valid name and description', () => {
+    const exerciseName = 'Bench Press'
+    const exerciseDescription = 'Press the barbell upwards while lying on a bench'
+    const exercise = new Exercise(exerciseName, exerciseDescription)
+
+    expect(exercise).toBeInstanceOf(Exercise)
+    expect(exercise.name).toBe(exerciseName)
+    expect(exercise.description).toBe(exerciseDescription)
+  })
+
+  // testing creating an exercise when passing only a name, no description
+  test('should create an Exercise instance with only a name', () => {
+    const exerciseName = 'Pull Up'
+    const exercise = new Exercise(exerciseName)
+
+    expect(exercise).toBeInstanceOf(Exercise)
+    expect(exercise.name).toBe(exerciseName)
+    expect(exercise.description).toBe("")
+  })
+
+  // testsing the creation of Exercise when passing an empty string (name)
+  test('should throw an error for an empty name', () => {
+    expect(() => {
+      new Exercise("")
+    }).toThrow(Error)
+  })
+
+  // testing the creation of Exercise when passing a non string name, in this case a number
+  test('should throw an error for a non-string name', () => {
+    expect(() => {
+      new Exercise(123)
+    }).toThrow(Error)
+  })
+
+  let exercise, validReps, validWeight
+
+  beforeEach(() => {
+    exercise = new Exercise('Bench Press', 'Chest exercise')
+    validReps = 1
+    validWeight = 0
+  })
+
+  // testing adding a warmup set
+  describe('addWarmupSet', () => {
+    test('should add a valid warmup set', () => {
+      exercise.addWarmupSet(validReps, validWeight)
+      expect(exercise.sets).toContainEqual({ type: 'warmup', reps: validReps, weight: validWeight })
     })
 
-    // testing creating an exercise when passing only a name, no description
-    test('should create an Exercise instance with only a name', () => {
-      const exerciseName = 'Pull Up'
-      const exercise = new Exercise(exerciseName)
-
-      expect(exercise).toBeInstanceOf(Exercise)
-      expect(exercise.name).toBe(exerciseName)
-      expect(exercise.description).toBe("")
+    test('should throw error for invalid reps', () => {
+      expect(() => exercise.addWarmupSet(0, validWeight)).toThrow(Error)
     })
 
-    // testsing the creation of Exercise when passing an empty string (name)
-    test('should throw an error for an empty name', () => {
-      expect(() => {
-        new Exercise("")
-      }).toThrow(Error)
+    test('should throw error for negative weight', () => {
+      expect(() => exercise.addWarmupSet(validReps, -1)).toThrow(Error)
+    })
+  })
+
+  // testing adding a working set
+  describe('addWorkingSet', () => {
+    test('should add a valid working set', () => {
+      exercise.addWorkingSet(validReps, validWeight)
+      expect(exercise.sets).toContainEqual({ type: 'working', reps: validReps, weight: validWeight })
     })
 
-    // testing the creation of Exercise when passing a non string name, in this case a number
-    test('should throw an error for a non-string name', () => {
-      expect(() => {
-        new Exercise(123)
-      }).toThrow(Error)
+    test('should throw error for invalid reps', () => {
+      expect(() => exercise.addWorkingSet(0, validWeight)).toThrow(Error)
     })
 
+    test('should throw error for negative weight', () => {
+      expect(() => exercise.addWorkingSet(validReps, -1)).toThrow(Error)
+    })
   })
 
 })
