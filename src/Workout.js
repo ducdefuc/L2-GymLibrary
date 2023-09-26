@@ -55,7 +55,7 @@ export class Workout {
    * @param {Exercise} exercise - The exercise whose warmup sets need to be formatted.
    * @returns {string} A formatted string of all warmup sets for the exercise.
    */
-  formatWarmupSets(exercise) {
+  #formatWarmupSets(exercise) {
     // Return a string of all the warmup sets for an exercise
     return exercise.sets
       .filter(set => set.type === 'warmup') // Keep only warmup sets
@@ -70,7 +70,7 @@ export class Workout {
    * @param {Exercise} exercise - The exercise whose working sets need to be formatted.
    * @returns {string} A formatted string of all working sets for the exercise.
    */
-  formatWorkingSets(exercise) {
+  #formatWorkingSets(exercise) {
     // Return a string of all the working sets for an exercise
     return exercise.sets
       .filter(set => set.type === 'working') // Keep only working sets
@@ -86,8 +86,8 @@ export class Workout {
   showWorkout() {
     // for each exercise in the workout, format the warmup sets and working sets.
     const exerciseDetails = this.#exercises.map(exercise => {
-      const warmupSets = this.formatWarmupSets(exercise)
-      const workingSets = this.formatWorkingSets(exercise)
+      const warmupSets = this.#formatWarmupSets(exercise)
+      const workingSets = this.#formatWorkingSets(exercise)
       // return a string with the exercise name, warmup sets and working sets.
       return `Exercise : ${exercise.name}\n${warmupSets}\n${workingSets}`
     }).join('\n') // Add a newline between each exercise

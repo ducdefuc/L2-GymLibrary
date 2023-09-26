@@ -24,7 +24,7 @@ export class Timer {
    * @throws {Error} Throws an error if the timer is already running.
    */
   startTimer(durationInSeconds, callbackWhenExpired, onTick) {
-    this.checkIfRunning(true) // Check if timer is already running
+    this.#checkIfRunning(true) // Check if timer is already running
     this.remainingSeconds = durationInSeconds
     this.isRunning = true
     this.callbackWhenExpired = callbackWhenExpired
@@ -67,7 +67,7 @@ export class Timer {
    * @throws {Error} Throws an error if the timer is not running.
    */
   pause(callbackWhenPaused) {
-    this.checkIfRunning(false) // Check if timer is already paused
+    this.#checkIfRunning(false) // Check if timer is already paused
     clearInterval(this.tickInterval)
     this.isRunning = false
     if (callbackWhenPaused) {
@@ -87,10 +87,11 @@ export class Timer {
   /**
    * Checks the running state of the timer.
    *
+   * @private
    * @param {boolean} shouldBeRunning - Expected state of the timer (true for running, false for paused).
    * @throws {Error} Throws an error if the timers state does not match the expected state.
    */
-  checkIfRunning(shouldBeRunning) {
+  #checkIfRunning(shouldBeRunning) {
     if (shouldBeRunning && this.isRunning) {
       throw new Error('Timer is already running.')
     }

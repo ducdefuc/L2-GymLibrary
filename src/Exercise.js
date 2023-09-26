@@ -28,7 +28,7 @@ export class Exercise {
    * @throws {Error} Throws an error if reps or weight values are invalid.
    */
   addWarmupSet(reps, weight) {
-    this.errorHandler(reps, weight)
+    this.#errorHandler(reps, weight)
     this.sets.push({ type: 'warmup', reps, weight })
   }
 
@@ -40,18 +40,19 @@ export class Exercise {
    * @throws {Error} Throws an error if reps or weight values are invalid.
    */
   addWorkingSet(reps, weight) {
-    this.errorHandler(reps, weight)
+    this.#errorHandler(reps, weight)
     this.sets.push({ type: 'working', reps, weight })
   }
 
   /**
    * Validates reps and weight for the sets.
    * 
+   * @private
    * @param {number} reps - Number of reps.
    * @param {number} weight - Weight.
    * @throws {Error} Throws an error if reps or weight values are invalid.
    */
-  errorHandler(reps, weight) {
+  #errorHandler(reps, weight) {
     if (typeof reps !== 'number' || reps < 1) {
       throw new Error('You have to do atleast 1 rep.')
     }
