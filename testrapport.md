@@ -47,3 +47,5 @@ Testing has been completed for each module, this includes GymLibrary.js, Exercis
 | Attempting to add a working set with invalid repetitions to `Exercise`| Trying to add a set with invalid reps "0" and valid weight "0" to the exercises working sets and expecting an error to be thrown | Passed |
 
 | Attempting to add a working set with negative weight to `Exercise`| Trying to add a set with valid reps "1" and negative weight "-1" to the exercises working sets and expecting an error to be thrown | Passed |
+
+[Auto test](images/test.png)
