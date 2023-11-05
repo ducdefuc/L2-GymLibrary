@@ -1,4 +1,4 @@
-import { GymLibrary } from "../src/GymLibrary.js"
+import GymLibrary from "../src/GymLibrary.js"
 
 const testLibrary = new GymLibrary()
 
