@@ -1,104 +1,83 @@
 /**
- * Represents a timer that provides countdown functionality.
+ * Provides functionality for a countdown timer.
  */
 export class Timer {
-
-  /**
-   * Initializes a new Timer instance.
-   */
   constructor() {
-    this.remainingSeconds = null
-    this.tickInterval = null
-    this.isRunning = false
-    this.callbackWhenExpired = null
-    this.onTick = null
-    this.callbackWhenPaused = null
+    this.remainingSeconds = 0;
+    this.tickInterval = null;
+    this.isRunning = false;
+    this.callbackWhenExpired = null;
+    this.onTickCallback = null;
+    this.callbackWhenPaused = null;
   }
 
-  /**
-   * Starts the timer countdown from the given duration.
-   *
-   * @param {number} durationInSeconds - The initial duration of the timer in seconds.
-   * @param {function} callbackWhenExpired - Callback function to execute when the timer expires.
-   * @param {function} onTick - Callback function to execute on each timer tick.
-   * @throws {Error} Throws an error if the timer is already running.
-   */
-  startTimer(durationInSeconds, callbackWhenExpired, onTick) {
-    this.#checkIfRunning(true) // Check if timer is already running
-    this.remainingSeconds = durationInSeconds
-    this.isRunning = true
-    this.callbackWhenExpired = callbackWhenExpired
-    this.onTick = onTick
-
-    this.tickInterval = setInterval(() => {
-      this.remainingSeconds -= 1  // Tick down counter every second
-
-      // If onTick callback is provided, call it with remaining time in seconds.
-      if (onTick) {
-        onTick(this.remainingSeconds)
-      }
-
-      // If remainingSeconds is 0 or less, clear the interval and call the expired callback.
-      if (this.remainingSeconds <= 0) {
-        clearInterval(this.tickInterval)
-        this.isRunning = false
-        if (callbackWhenExpired) {
-          callbackWhenExpired()
-        }
-      }
-    }, 1000)
+  startTimer(durationInSeconds, callbackWhenExpired, onTickCallback) {
+    this.#ensureTimerIsNotRunning();
+    this.remainingSeconds = durationInSeconds;
+    this.callbackWhenExpired = callbackWhenExpired;
+    this.onTickCallback = onTickCallback;
+    this.isRunning = true;
+    this.#initializeTick();
   }
 
-  /**
-   * Resets the timer, and its states to default.
-   */
   resetTimer() {
-    clearInterval(this.tickInterval)
-    this.remainingSeconds = null
-    this.isRunning = false
-    this.callbackWhenExpired = null
-    this.onTick = null
+    this.#clearTickInterval();
+    this.remainingSeconds = 0;
+    this.isRunning = false;
+    this.callbackWhenExpired = null;
+    this.onTickCallback = null;
   }
 
-  /**
-   * Pauses a running timer. 
-   *
-   * @param {function} callbackWhenPaused - Callback function to execute when the timer is paused.
-   * @throws {Error} Throws an error if the timer is not running.
-   */
   pause(callbackWhenPaused) {
-    this.#checkIfRunning(false) // Check if timer is already paused
-    clearInterval(this.tickInterval)
-    this.isRunning = false
+    this.#ensureTimerIsRunning();
+    this.#clearTickInterval();
+    this.isRunning = false;
     if (callbackWhenPaused) {
-      callbackWhenPaused()
+      callbackWhenPaused();
     }
   }
 
-  /**
-   * Resumes a paused timer with the remaining seconds. 
-   */
   resume() {
-    if (this.remainingSeconds !== null) {
-      this.startTimer(this.remainingSeconds, this.callbackWhenExpired, this.onTick)
+    if (this.remainingSeconds > 0) {
+      this.startTimer(this.remainingSeconds, this.callbackWhenExpired, this.onTickCallback);
     }
   }
 
-  /**
-   * Checks the running state of the timer.
-   *
-   * @private
-   * @param {boolean} shouldBeRunning - Expected state of the timer (true for running, false for paused).
-   * @throws {Error} Throws an error if the timers state does not match the expected state.
-   */
-  #checkIfRunning(shouldBeRunning) {
-    if (shouldBeRunning && this.isRunning) {
-      throw new Error('Timer is already running.')
-    }
+  #initializeTick() {
+    this.tickInterval = setInterval(() => {
+      this.remainingSeconds--;
 
-    if (!shouldBeRunning && !this.isRunning) {
-      throw new Error('Timer is not running.')
+      if (this.onTickCallback) {
+        this.onTickCallback(this.remainingSeconds);
+      }
+
+      if (this.remainingSeconds <= 0) {
+        this.#timerExpired();
+      }
+    }, 1000);
+  }
+
+  #timerExpired() {
+    this.#clearTickInterval();
+    this.isRunning = false;
+    if (this.callbackWhenExpired) {
+      this.callbackWhenExpired();
     }
   }
 
+  #clearTickInterval() {
+    clearInterval(this.tickInterval);
+  }
+
+  #ensureTimerIsNotRunning() {
+    if (this.isRunning) {
+      throw new Error('Timer is already running.');
+    }
+  }
+
+  #ensureTimerIsRunning() {
+    if (!this.isRunning) {
+      throw new Error('Timer is not running.');
+    }
+  }
 }
