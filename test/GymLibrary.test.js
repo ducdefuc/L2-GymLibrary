@@ -1,4 +1,4 @@
-import { GymLibrary } from "../src/GymLibrary.js"
+import GymLibrary from "../src/GymLibrary.js"
 import { Workout } from "../src/Workout.js"
 import { Exercise } from "../src/Exercise.js"
 
@@ -12,12 +12,12 @@ describe('GymLibrary', () => {
   // Testing .createWorkout() function
   describe('createWorkout', () => {
     test('should create a new workout', () => {
-      const workoutName = 'Push Day'
-      lib.createWorkout(workoutName)
-      const workouts = lib.listAllWorkouts()
-      expect(workouts).toContain(workoutName)
-    })
-  })
+      const workoutName = 'Push Day';
+      lib.createWorkout(workoutName);
+      const workouts = lib.listAllWorkouts();
+      expect(workouts).toContain(workoutName);
+    });
+  });
 
   // Testing .removeWorkout() function
   describe('removeWorkout', () => {
@@ -64,10 +64,11 @@ describe('GymLibrary', () => {
 
     // Testing adding a valid exercise to an existing workout
     test('should add a valid exercise to an existing workout', () => {
-      lib.addExerciseToWorkout(workoutName, exercise)
-      const workoutDetailsString = lib.getWorkout(workoutName)
-      expect(workoutDetailsString).toContain(exerciseName)
-    })
+      lib.addExerciseToWorkout(workoutName, exercise);
+      const workoutDetails = lib.getWorkout(workoutName);
+      const exerciseNames = workoutDetails.exercises.map(ex => ex.name);
+      expect(exerciseNames).toContain(exerciseName);
+    });
 
     // Testing adding an exercise to a non-existent workout
     test('should throw an error if trying to add an exercise to a non-existent workout', () => {
@@ -103,16 +104,18 @@ describe('GymLibrary', () => {
     // Testing removing an exercise from an existing workout
     test('should remove an exercise from an existing workout', () => {
       // Confirm the exercise is in the workout
-      const initialWorkoutDetails = lib.getWorkout(workoutName)
-      expect(initialWorkoutDetails).toContain(exerciseName)
+      const initialWorkoutDetails = lib.getWorkout(workoutName);
+      const initialExerciseNames = initialWorkoutDetails.exercises.map(ex => ex.name);
+      expect(initialExerciseNames).toContain(exerciseName);
 
       // Remove the exercise
-      lib.removeExerciseFromWorkout(workoutName, exerciseName)
+      lib.removeExerciseFromWorkout(workoutName, exerciseName);
 
       // Confirm the exercise is no longer in the workout
-      const updatedWorkoutDetails = lib.getWorkout(workoutName)
-      expect(updatedWorkoutDetails).not.toContain(exerciseName)
-    })
+      const updatedWorkoutDetails = lib.getWorkout(workoutName);
+      const updatedExerciseNames = updatedWorkoutDetails.exercises.map(ex => ex.name);
+      expect(updatedExerciseNames).not.toContain(exerciseName);
+    });
 
     // testing removing an exercise from a non-existent workout
     test('should throw an error when trying to remove a non-existent exercise', () => {
@@ -175,12 +178,17 @@ describe('GymLibrary', () => {
       lib.addExerciseToWorkout(workoutName, exercise)
     })
 
-    // Retrieveing an existing Workout case
+    // Retrieving an existing Workout case
     test('should retrieve details of an existing workout', () => {
-      const workoutDetails = lib.getWorkout(workoutName)
-      expect(workoutDetails).toContain(workoutName)
-      expect(workoutDetails).toContain(exerciseName)
-    })
+      const workoutDetails = lib.getWorkout(workoutName);
+
+      // Check if workout name matches
+      expect(workoutDetails.name).toBe(workoutName);
+
+      // Check if the exercises array contains an exercise with the specified name
+      const exerciseNames = workoutDetails.exercises.map(ex => ex.name);
+      expect(exerciseNames).toContain(exerciseName);
+    });
 
     // Retrieving a non existing Workout case
     test('should throw an error when trying to retrieve a non-existent workout', () => {

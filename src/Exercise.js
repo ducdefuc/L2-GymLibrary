@@ -16,7 +16,7 @@ export class Exercise {
   }
 
   addWorkingSet(reps, weight) {
-    this.validateSet(reps, weight)
+    this.#validateSet(reps, weight)
     this.sets.push({ type: 'working', reps, weight })
   }
 
